@@ -1,0 +1,26 @@
+Parameters:
+  GitHubOrgName:
+    Description: GitHub org name
+    Type: String
+
+Resources:
+  GitHubOIDCProvider:
+    Type: AWS::IAM::OIDCProvider
+    DeletionPolicy: Retain
+    Properties:
+      ClientIdList:
+        - sts.amazonaws.com
+      ThumbprintList:
+        - 6938fd4d98bab03faadb97b34396831e3780aea1
+      Url: https://token.actions.githubusercontent.com
+      Tags:
+        - Key: "git"
+          Value: "cf-aws-oidc-github"
+        - Key: "cost"
+          Value: "shared"
+        - Key: "creator"
+          Value: "cloudformation"
+Outputs:
+  GitHubOIDCProviderArn:
+    Description: ARN of the specified AWS::IAM::OIDCProvider resource
+    Value: !GetAtt GitHubOIDCProvider.Arn
